@@ -102,3 +102,5 @@ __pycache__/
 .idea/
 not.txt
 env
+
+.db.sqlite3
