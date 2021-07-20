@@ -3,16 +3,14 @@ from ckeditor.fields import RichTextField
 from django.contrib.auth.models import User
 from django.db import models
 
+from blog.abstract_date import AbstractDate
 from blog.models import Category
 
 
-class Article(models.Model):
+class Article(AbstractDate):
     title = models.CharField(max_length=50)
-    #detail = models.TextField()
     detail = RichTextField()
     image = models.ImageField(upload_to='article_images')
-    created_date = models.DateTimeField(auto_now_add=True)
-    updated_date = models.DateTimeField(auto_now=True)
     slug = AutoSlugField(populate_from='title', unique=True)
     categories = models.ManyToManyField(Category, related_name='article')
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='articles')
