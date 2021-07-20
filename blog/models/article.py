@@ -1,4 +1,5 @@
 from autoslug import AutoSlugField
+from ckeditor.fields import RichTextField
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -7,7 +8,8 @@ from blog.models import Category
 
 class Article(models.Model):
     title = models.CharField(max_length=50)
-    detail = models.TextField()
+    #detail = models.TextField()
+    detail = RichTextField()
     image = models.ImageField(upload_to='article_images')
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
