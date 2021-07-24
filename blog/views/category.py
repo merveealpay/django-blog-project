@@ -5,6 +5,7 @@ from blog.models import Article, Category
 
 
 def category(request, categorySLug):
+
     category = get_object_or_404(Category, slug=categorySLug)
     articles = category.article.order_by('-id')
     page = request.GET.get('page')
