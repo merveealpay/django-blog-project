@@ -1,6 +1,5 @@
 from django.urls import path
 from blog.views import contact, index, category, my_articles, detail, add_article
-from django.views.generic import TemplateView
 
 urlpatterns = [
     path('', index, name='index'),
