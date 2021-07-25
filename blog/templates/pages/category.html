@@ -14,7 +14,7 @@
       <div class="card-body">
         <h5 class="card-title">
           <a href="{% url 'detail' slug=article.slug %}">
-            {{ article.baslik }}
+            {{ article.title }}
           </a>
         </h5>
         <p class="card-text">{{ article.detail|safe|truncatechars_html:150}}</p>

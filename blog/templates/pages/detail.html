@@ -18,12 +18,12 @@
           <small class="text-muted">
           Önce Paylaşıldı: {{ article.updated_date|timesince }}
           <br>
-          Yazar : <a href="{% url 'profil' username=article.author.username %}"> {{ article.author.username }}</a>
+{#          Yazar : <a href="{% url 'profil' username=article.author.username %}"> {{ article.author.username }}</a>#}
         </small>
          {% if request.user == article.author %}
           <p>
-            <a class="btn btn-primary" href="{% url 'update-article' slug=article.slug %}">Düzenle</a>
-            <a class="btn btn-danger" href="{% url 'delete-article' slug=article.slug %}">Sil</a>
+{#            <a class="btn btn-primary" href="{% url 'update-article' slug=article.slug %}">Düzenle</a>#}
+{#            <a class="btn btn-danger" href="{% url 'delete-article' slug=article.slug %}">Sil</a>#}
           </p>
          {% endif %}
         </p>
@@ -34,41 +34,34 @@
 
 <h5>Comments</h5>
 
-{#{% if request.user.is_authenticated %}#}
-{#  <form method="POST">#}
-{#    {% csrf_token %}#}
+{% if request.user.is_authenticated %}
+  <form method="POST">
+    {% csrf_token %}
 {#    {{ yorum_ekle_form|crispy }}#}
-{#    <input type="submit" value="Yorum Yap" class="btn btn-danger mt-3 mb-3" />#}
-{#  </form>#}
-{#{%else%}#}
-{#  <p>Yorum yapmak için lütfen üye giriş yapınız.</p>#}
-{#{%endif%}#}
+    <input type="submit" value="Yorum Yap" class="btn btn-danger mt-3 mb-3" />
+  </form>
+{%else%}
+  <p>Yorum yapmak için lütfen üye giriş yapınız.</p>
+{%endif%}
 
-{#{% include 'components/message.html' %}#}
+{% include 'components/message.html' %}
 
-{#{% for yorum in yorumlar %}#}
-{#  <div class="card">#}
-{#    <div class="card-body" style="display:flex;flex-direction: row;">#}
-{#      <div>#}
-{#        {% if yorum.yazan.avatar %}#}
-{#          <img src="{{ yorum.yazan.avatar.url }}"  class="rounded" class="pt-4" width="75px" height="75px">#}
-{#        {% else %}#}
-{#          <img src="{% static 'img/no-avatar.jpg' %}"  class="rounded" class="pt-4" width="75px" height="75px">#}
-{#        {% endif %}#}
-{#      </div>#}
-{#      <div>#}
-{#        <h5 class="card-title">{{ yorum.yazan.username }}</h5>#}
-{#        <p class="card-text">#}
-{#          {{ yorum.yorum }}#}
-{#        </p>#}
-{#        {% if request.user == yorum.yazan or request.user == yazi.yazar %}#}
-{#          <p>#}
-{#            <a class="btn btn-danger" href="{% url 'yorum-sil' id=yorum.id %}">Yorum Sil</a>#}
-{#          </p>#}
-{#        {% endif %}#}
-{#      </div>#}
-{#    </div>#}
-{#  </div>#}
+{% for comment in comments %}
+  <div class="card">
+    <div class="card-body" style="display:flex;flex-direction: row;">
+      <div>
+        <h5 class="card-title">{{ comment.author.username }}</h5>
+        <p class="card-text">
+          {{ comment.comment }}
+        </p>
+        {% if request.user == comment.author or request.user == article.author %}
+          <p>
+{#            <a class="btn btn-danger" href="{% url 'yorum-sil' id=comment.id %}">Yorum Sil</a>#}
+          </p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
 
 {% empty %}
 <p>Bu yazı için hiç yorum yapılmamış. </p>

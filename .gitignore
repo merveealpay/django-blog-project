@@ -105,4 +105,5 @@ env
 
 .db.sqlite3
 article_images
-media
+media/
+.env

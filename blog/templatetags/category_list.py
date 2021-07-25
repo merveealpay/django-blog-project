@@ -1,5 +1,6 @@
 from django import template
 from blog.models import Category
+from django import template
 
 register = template.Library()
 
